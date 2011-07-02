@@ -1,0 +1,14 @@
+.DS_Store
+target/
+build/
+.apt_generated/
+.settings/com.google.gdt.eclipse.core.prefs
+war/WEB-INF/classes/
+war/WEB-INF/appengine-generated/
+war/WEB-INF/lib/appengine*.jar
+war/WEB-INF/lib/datanucleus-*.jar
+war/WEB-INF/lib/geronimo-*.jar
+war/WEB-INF/lib/jdo2*.jar
+war/WEB-INF/lib/jsr*.jar
+**/.idea/
+
