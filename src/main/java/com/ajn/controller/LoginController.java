@@ -3,6 +3,7 @@ package com.ajn.controller;
 import org.apache.commons.lang.StringUtils;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
+import org.slim3.util.AppEngineUtil;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -59,7 +60,7 @@ public class LoginController extends Controller {
 		try {
 			StringBuffer callbackURL = request.getRequestURL();
 			String urlString = callbackURL.toString();
-			if (urlString.indexOf("http:") >= 0) {
+			if (AppEngineUtil.isProduction() && urlString.indexOf("http:") >= 0) {
 				urlString = urlString.replaceFirst("http\\:", "https:");
 			}
 			RequestToken requestToken = twitter.getOAuthRequestToken(urlString);
