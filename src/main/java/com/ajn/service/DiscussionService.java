@@ -1,5 +1,7 @@
 package com.ajn.service;
 
+import java.util.List;
+
 import org.slim3.datastore.Datastore;
 
 import com.ajn.meta.DiscussionMeta;
@@ -36,5 +38,13 @@ public class DiscussionService {
 	 */
 	public static Discussion get(long id) {
 		return Datastore.getOrNull(meta, createKey(id));
+	}
+
+	/**
+	 * @return {@link Discussion}のリスト.
+	 * @author shin1ogawa
+	 */
+	public static List<Discussion> list() {
+		return Datastore.query(meta).sort(meta.createdAt.desc).asList();
 	}
 }

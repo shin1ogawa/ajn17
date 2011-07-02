@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.slim3.datastore.Attribute;
+import org.slim3.datastore.Datastore;
 import org.slim3.datastore.Model;
+import org.slim3.datastore.json.Default;
+import org.slim3.datastore.json.Json;
+import org.slim3.datastore.json.JsonReader;
+import org.slim3.datastore.json.JsonWriter;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -18,11 +23,12 @@ public class Discussion implements Serializable {
 
 	private static final long serialVersionUID = 3575741695766630236L;
 
-	@Attribute(primaryKey = true)
+	@Attribute(primaryKey = true, json = @Json(coder = KeyIdCoder.class))
 	Key key;
 
 	String title;
 
+	@Attribute(json = @Json(coder = Account.KeyIdCoder.class))
 	Key author;
 
 	String authorName;
@@ -127,5 +133,26 @@ public class Discussion implements Serializable {
 	 */
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+
+	/**
+	 * @author shin1ogawa
+	 */
+	public static class KeyIdCoder extends Default {
+
+		@Override
+		public void encode(JsonWriter writer, Key value) {
+			writer.writeValue(value != null ? value.getId() : "");
+		}
+
+		@Override
+		public Key decode(JsonReader reader, Key defaultValue) {
+			String text = reader.read();
+			if (text != null) {
+				return Datastore.createKey(Discussion.class, text);
+			}
+			return defaultValue;
+		}
 	}
 }

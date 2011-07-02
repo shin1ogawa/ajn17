@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,20 +28,29 @@ public class DiscussionController extends SimpleController {
 
 	@Override
 	protected Navigation run() throws Exception {
-		Long twitterId = (Long) request.getSession().getAttribute("twitterId");
-		if (twitterId == null) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return null;
-		}
-		Account account = AccountService.get(twitterId);
-		if (account == null) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return null;
-		}
-
 		if (isPost()) {
+			Long twitterId = (Long) request.getSession().getAttribute("twitterId");
+			if (twitterId == null) {
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+				return null;
+			}
+			Account account = AccountService.get(twitterId);
+			if (account == null) {
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+				return null;
+			}
 			return doPost(account);
+		} else if (isGet()) {
+			return doGet();
 		}
+		response.flushBuffer();
+		return null;
+	}
+
+	Navigation doGet() throws IOException {
+		List<Discussion> list = DiscussionService.list();
+		response.getWriter().println(
+				DiscussionMeta.get().modelsToJson(list.toArray(new Discussion[0])));
 		return null;
 	}
 

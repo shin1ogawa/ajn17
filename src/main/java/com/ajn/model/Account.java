@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.slim3.datastore.Attribute;
+import org.slim3.datastore.Datastore;
 import org.slim3.datastore.Model;
+import org.slim3.datastore.json.Default;
+import org.slim3.datastore.json.JsonReader;
+import org.slim3.datastore.json.JsonWriter;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -110,5 +114,26 @@ public class Account implements Serializable {
 	 */
 	public void setAccessTokenSecret(String accessTokenSecret) {
 		this.accessTokenSecret = accessTokenSecret;
+	}
+
+
+	/**
+	 * @author shin1ogawa
+	 */
+	public static class KeyIdCoder extends Default {
+
+		@Override
+		public void encode(JsonWriter writer, Key value) {
+			writer.writeValue(value != null ? value.getId() : "");
+		}
+
+		@Override
+		public Key decode(JsonReader reader, Key defaultValue) {
+			String text = reader.read();
+			if (text != null) {
+				return Datastore.createKey(Account.class, text);
+			}
+			return defaultValue;
+		}
 	}
 }
