@@ -10,7 +10,7 @@ import com.google.appengine.api.datastore.Key;
 
 /**
  * ログインユーザのアカウントを保存する。
- * <p>keyName=TwitterID</p>
+ * <p>keyId=TwitterID</p>
  * @author shin1ogawa
  */
 @Model(schemaVersion = 1, schemaVersionName = "sv")
