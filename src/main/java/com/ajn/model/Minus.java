@@ -20,6 +20,8 @@ public class Minus implements Serializable {
 	@Attribute(primaryKey = true)
 	Key key;
 
+	Key submission;
+
 
 	/**
 	 * @return the key
@@ -35,5 +37,21 @@ public class Minus implements Serializable {
 	 */
 	public void setKey(Key key) {
 		this.key = key;
+	}
+
+	/**
+	 * @param submission the submission to set
+	 * @category accessor
+	 */
+	public void setSubmission(Key submission) {
+		this.submission = submission;
+	}
+
+	/**
+	 * @return the submission
+	 * @category accessor
+	 */
+	public Key getSubmission() {
+		return submission;
 	}
 }

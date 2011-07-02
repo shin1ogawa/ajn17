@@ -50,7 +50,8 @@ public class MinusController extends Controller {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "submission must be number.");
 			return null;
 		}
-		PlusAndMinusService.minus(account, Datastore.createKey(Submission.class, submissionId));
+		PlusAndMinusService.minus(account.getKey(),
+				Datastore.createKey(Submission.class, submissionId));
 		return null;
 	}
 }

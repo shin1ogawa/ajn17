@@ -33,7 +33,7 @@ public class PlusAndMinusServiceTest extends ControllerTestCase {
 	public void plus() {
 		int beforePlusCount = tester.count(Plus.class);
 		int beforeMinusCount = tester.count(Minus.class);
-		PlusAndMinusService.plus(account, discussions.get(0).getKey());
+		PlusAndMinusService.plus(account.getKey(), discussions.get(0).getKey());
 		int afterPlusCount = tester.count(Plus.class);
 		int afterMinusCount = tester.count(Minus.class);
 		assertThat(afterPlusCount, is(beforePlusCount + 1));
@@ -47,7 +47,7 @@ public class PlusAndMinusServiceTest extends ControllerTestCase {
 	public void minus() {
 		int beforePlusCount = tester.count(Plus.class);
 		int beforeMinusCount = tester.count(Minus.class);
-		PlusAndMinusService.minus(account, discussions.get(0).getKey());
+		PlusAndMinusService.minus(account.getKey(), discussions.get(0).getKey());
 		int afterPlusCount = tester.count(Plus.class);
 		int afterMinusCount = tester.count(Minus.class);
 		assertThat(afterPlusCount, is(beforePlusCount));
@@ -62,8 +62,8 @@ public class PlusAndMinusServiceTest extends ControllerTestCase {
 	public void plusAndMinus() {
 		int beforePlusCount = tester.count(Plus.class);
 		int beforeMinusCount = tester.count(Minus.class);
-		PlusAndMinusService.plus(account, discussions.get(0).getKey());
-		PlusAndMinusService.minus(account, discussions.get(0).getKey());
+		PlusAndMinusService.plus(account.getKey(), discussions.get(0).getKey());
+		PlusAndMinusService.minus(account.getKey(), discussions.get(0).getKey());
 		int afterPlusCount = tester.count(Plus.class);
 		int afterMinusCount = tester.count(Minus.class);
 		assertThat(afterPlusCount, is(beforePlusCount));
@@ -79,8 +79,8 @@ public class PlusAndMinusServiceTest extends ControllerTestCase {
 	public void minusAndPlus() {
 		int beforePlusCount = tester.count(Plus.class);
 		int beforeMinusCount = tester.count(Minus.class);
-		PlusAndMinusService.minus(account, discussions.get(0).getKey());
-		PlusAndMinusService.plus(account, discussions.get(0).getKey());
+		PlusAndMinusService.minus(account.getKey(), discussions.get(0).getKey());
+		PlusAndMinusService.plus(account.getKey(), discussions.get(0).getKey());
 		int afterPlusCount = tester.count(Plus.class);
 		int afterMinusCount = tester.count(Minus.class);
 		assertThat(afterPlusCount, is(beforePlusCount + 1));
